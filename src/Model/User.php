@@ -14,6 +14,10 @@ class User {
 
   protected int $telegram_id;
 
+  public function getId(): int {
+    return $this->id;
+  }
+
   public function getEmail(): string {
     return $this->email;
   }
