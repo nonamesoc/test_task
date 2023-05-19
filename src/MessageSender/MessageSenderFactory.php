@@ -6,7 +6,7 @@ use vendor\SmsLibrary; // просто для примера
 use vendor\TelegramApiClient;
 use vendor\MailSender;
 
-class MessageSenderFactory {
+class MessageSenderFactory implements MessageSenderFactoryInterface {
 
   const SMS = 'sms';
   const EMAIL = 'email';
@@ -25,11 +25,25 @@ class MessageSenderFactory {
         $messageSender = new TelegramMessageSender(new TelegramApiClient());
         break;
       default:
-        // @todo Exception
+        throw new \Exception('Недопустимы тип');
         break;
     };
 
     return $messageSender;
+  }
+
+  public static function checkType(string $type): bool {
+    $allowed = [
+      self::SMS,
+      self::EMAIL,
+      self::TELEGRAM
+    ];
+
+    if (in_array($type, $allowed, TRUE)) {
+      return TRUE;
+    }
+
+    return FALSE;
   }
 
 }
