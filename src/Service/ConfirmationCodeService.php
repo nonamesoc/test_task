@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Model\User;
 
-class ConfirmationCodeService {
+class ConfirmationCodeService implements ConfirmationCodeServiceInterface {
 
   public function generateCode(User $user, int $digits = 4): string {
     $i = 0;
@@ -25,7 +25,8 @@ class ConfirmationCodeService {
   }
 
   public function checkCode(string $code, User $user): bool {
-    // получение кода по user id
+    $user_id = $user->getId();
+    // Здесь должно быть получение кода по user id из базы данных
     $exist_code = '';
     if ($code === $exist_code) {
       return TRUE;
